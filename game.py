@@ -1,5 +1,6 @@
 from random import randint
 
+
 board = []
 player1 = ''
 player2 = ''
@@ -24,10 +25,12 @@ def set_board():
 
 
 def make_move(val, player):
-    if board[int(val)] == '*':
-        board[int(val)] = player
+    if board[int(val)-1] == '*':
+        board[int(val)-1] = player
     else:
         print('xoxo Invalid Option xoxo')
+        val = input("Enter the index you want to insert (1-9)\n ")
+        make_move(val, player)
 
 
 def print_board():
@@ -43,21 +46,28 @@ def print_board():
                                                                                                    board[8],
                                                                                                    ))
 
+
+whoisplayer()
+set_board()
 i = 0
+print("Player{0} You are '{0}'\t Player{1} You are '{1}'".format(player1, player2))
+print_board()
 while 1:
-    whoisplayer()
-    set_board()
-    print("PlayerX You are '{0}'\t PlayerO You are '{1}'".format(player1,player2))
 
     if i % 2 == 0:
-        print('Player"{}" turn'.format(player1))
-        val = input("Enter the index you want to insert\n Press N to exit\n")
+        print('Player"{}\'s" turn'.format(player1))
+        val = input("Enter the index you want to insert (1-9)\n Press N to exit\n")
+        make_move(val, player1)
 
     else:
-        print('Player"{}" turn'.format(player2))
-        val = input("Enter the index you want to insert\n Press N to exit\n")
+        print('Player"{}\'s" turn'.format(player2))
+        val = input("Enter the index you want to insert (1-9)\n Press N to exit\n")
+        make_move(val, player2)
 
-    if val == 'N':
+    print_board()
+    i += 1
+    if val == 'N' or i > 9:
+        print("\n----- Thanks for playing -----\n")
         exit(0)
 
 
